@@ -1,3 +1,19 @@
+## Description
+
+This project contains a UI for interacting with [CCXT Trade Manager](https://github.com/notlesh/ccxt-trade-mgr). It is written in [React](https://github.com/facebook/react) and uses [Material-UI](https://github.com/mui-org/material-ui).
+
+## Building and running
+
+In order to build:
+
+1) `npm install`
+2) `npm start`
+3) Open a web browser to http://localhost:3000
+
+See the `Create React App` documentation that follows for more details.
+
+## Original Create React App documentation
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
