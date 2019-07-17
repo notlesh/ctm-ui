@@ -15,8 +15,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import HomeIcon from '@material-ui/icons/Home';
+import AccountIcon from '@material-ui/icons/AccountBalanceWallet';
+import PositionsIcon from '@material-ui/icons/TrendingUp';
 
 import IntroductionPage from './IntroductionPage';
 
@@ -176,17 +177,17 @@ export default function MainAppDrawer() {
         <Divider />
         <List>
           <ListItem button key="overview" onClick={showIntroContent}>
-            <ListItemIcon><MailIcon /></ListItemIcon>
+            <ListItemIcon><HomeIcon /></ListItemIcon>
             <ListItemText primary="Overview" />
           </ListItem>
 
           <ListItem button key="account" onClick={showAccountContent}>
-            <ListItemIcon><MailIcon /></ListItemIcon>
+            <ListItemIcon><AccountIcon /></ListItemIcon>
             <ListItemText primary="Account Info" />
           </ListItem>
 
           <ListItem button key="positions" onClick={showPositionsContent}>
-            <ListItemIcon><MailIcon /></ListItemIcon>
+            <ListItemIcon><PositionsIcon /></ListItemIcon>
             <ListItemText primary="Positions" />
           </ListItem>
         </List>
