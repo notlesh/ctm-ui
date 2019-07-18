@@ -111,7 +111,7 @@ function MainAppDrawer({appSection, drawerOpen, navChangeSection, navChangeDrawe
       title = "Positions";
       break;
     default:
-      throw "Expected a default value for appSection";
+      throw new Error("Expected a default value for appSection");
   }
 
   return (
