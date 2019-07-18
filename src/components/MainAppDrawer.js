@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'clsx';
-import { connect } from 'react-redux';
 import { createStyles, makeStyles, useTheme, Theme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -20,8 +19,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import AccountIcon from '@material-ui/icons/AccountBalanceWallet';
 import PositionsIcon from '@material-ui/icons/TrendingUp';
 
-import * as Constants from './constants';
-import * as Actions from './redux/actions';
+import * as Constants from '../constants';
 import IntroductionPage from './IntroductionPage';
 
 
@@ -90,14 +88,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function MainAppDrawer({appSection, drawerOpen, navChangeSection, navChangeDrawerState}) {
+const MainAppDrawer = ({selectedSection, drawerOpen, onNavSectionSelected, onDrawerToggled}) => {
   const classes = useStyles();
   const theme = useTheme();
 
   let content = null;
   let title = null;
 
-  switch (appSection) {
+  switch (selectedSection) {
     case Constants.AppSection.DASHBOARD:
       content = <IntroductionPage />;
       title = "Introduction";
@@ -111,12 +109,25 @@ function MainAppDrawer({appSection, drawerOpen, navChangeSection, navChangeDrawe
       title = "Positions";
       break;
     default:
-      throw new Error("Expected a default value for appSection");
+      throw new Error("selectedSection must match one of AppSection values");
   }
+
+  const appSections = [
+    { key: Constants.AppSection.DASHBOARD,
+      icon: <HomeIcon />,
+      label: "Dashboard" },
+    { key: Constants.AppSection.ACCOUNT,
+      icon: <AccountIcon />,
+      label: "Account" },
+    { key: Constants.AppSection.POSITIONS,
+      icon: <PositionsIcon />,
+      label: "Positions" },
+  ];
 
   return (
     <div className={classes.root}>
       <CssBaseline />
+
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
@@ -127,7 +138,7 @@ function MainAppDrawer({appSection, drawerOpen, navChangeSection, navChangeDrawe
           <IconButton
             color="inherit"
             aria-label="Open drawer"
-            onClick={() => navChangeDrawerState(true)}
+            onClick={() => onDrawerToggled(true)}
             edge="start"
             className={clsx(classes.menuButton, {
               [classes.hide]: drawerOpen,
@@ -140,6 +151,7 @@ function MainAppDrawer({appSection, drawerOpen, navChangeSection, navChangeDrawe
           </Typography>
         </Toolbar>
       </AppBar>
+
       <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {
@@ -155,43 +167,28 @@ function MainAppDrawer({appSection, drawerOpen, navChangeSection, navChangeDrawe
         open={drawerOpen}
       >
         <div className={classes.toolbar}>
-          <IconButton onClick={() => navChangeDrawerState(false)}>
+          <IconButton onClick={() => onDrawerToggled(false)}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
+
         <Divider />
+
         <List>
-          <ListItem
-            button
-            key={Constants.AppSection.DASHBOARD}
-            selected={appSection === Constants.AppSection.DASHBOARD}
-            onClick={() => navChangeSection(Constants.AppSection.DASHBOARD)}
-          >
-            <ListItemIcon><HomeIcon /></ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
-
-          <ListItem
-            button
-            key={Constants.AppSection.ACCOUNT}
-            selected={appSection === Constants.AppSection.ACCOUNT}
-            onClick={() => navChangeSection(Constants.AppSection.ACCOUNT)}
-          >
-            <ListItemIcon><AccountIcon /></ListItemIcon>
-            <ListItemText primary="Account Info" />
-          </ListItem>
-
-          <ListItem
-            button
-            key={Constants.AppSection.POSITIONS}
-            selected={appSection === Constants.AppSection.POSITIONS}
-            onClick={() => navChangeSection(Constants.AppSection.POSITIONS)}
-          >
-            <ListItemIcon><PositionsIcon /></ListItemIcon>
-            <ListItemText primary="Positions" />
-          </ListItem>
+          {appSections.map(appSection =>
+            <ListItem
+              button
+              key={appSection.key}
+              selected={selectedSection === appSection.key}
+              onClick={() => onNavSectionSelected(appSection.key)}
+            >
+              <ListItemIcon>{appSection.icon}</ListItemIcon>
+              <ListItemText primary={appSection.label} />
+            </ListItem>
+          )}
         </List>
       </Drawer>
+
       <main className={classes.content}>
         <div className={classes.toolbar} />
           {content}
@@ -200,17 +197,4 @@ function MainAppDrawer({appSection, drawerOpen, navChangeSection, navChangeDrawe
   );
 }
 
-const mapStateToProps = (state) => ({
-  appSection: state.ui.appSection,
-  drawerOpen: state.ui.drawerOpen,
-});
-
-const mapDispatchToProps = {
-  navChangeSection: Actions.navChangeSection,
-  navChangeDrawerState: Actions.navChangeDrawerState,
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MainAppDrawer);
+export default MainAppDrawer;

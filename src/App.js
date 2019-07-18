@@ -1,12 +1,12 @@
 import React from 'react';
 
-import MainAppDrawer from './MainAppDrawer';
+import MainAppContainer from './containers/MainAppContainer';
 
 import './App.css';
 
 function App() {
   return (
-    <MainAppDrawer />
+    <MainAppContainer />
   );
 }
 
