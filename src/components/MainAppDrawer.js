@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { createStyles, makeStyles, useTheme, Theme } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -196,5 +197,12 @@ const MainAppDrawer = ({selectedSection, drawerOpen, onNavSectionSelected, onDra
     </div>
   );
 }
+
+MainAppDrawer.propTypes ={
+  selectedSection: PropTypes.oneOf(Object.values(Constants.AppSection)),
+  drawerOpen: PropTypes.bool,
+  onNavSectionSelected: PropTypes.func,
+  onDrawerToggled: PropTypes.func,
+};
 
 export default MainAppDrawer;

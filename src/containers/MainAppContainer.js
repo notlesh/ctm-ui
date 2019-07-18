@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import * as Constants from '../constants';
 import * as Actions from '../redux/actions';
@@ -15,6 +16,13 @@ const MainAppContainer = ({appSection, drawerOpen, navChangeSection, navChangeDr
       onDrawerToggled={navChangeDrawerState} />
   );
 }
+
+MainAppContainer.propTypes = {
+  appSection: PropTypes.oneOf(Object.values(Constants.AppSection)),
+  drawerOpen: PropTypes.bool,
+  navChangeSection: PropTypes.func,
+  navChangeDrawerState: PropTypes.func,
+};
 
 const mapStateToProps = (state) => ({
   appSection: state.ui.appSection,
