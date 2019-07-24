@@ -12,6 +12,12 @@ const initialState = {
     drawerOpen: true,
     appSection: Constants.AppSection.DASHBOARD,
   },
+
+  data: {
+    users: [],
+    userRequestStatus: Constants.RequestStatus.SUCCESSFUL,
+    userRequestMessage: "",
+  },
   
 };
 

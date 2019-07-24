@@ -19,9 +19,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountIcon from '@material-ui/icons/AccountBalanceWallet';
 import PositionsIcon from '@material-ui/icons/TrendingUp';
+import AdminIcon from '@material-ui/icons/PermIdentity';
 
 import * as Constants from '../constants';
 import IntroductionPage from './IntroductionPage';
+import AdminPage from '../containers/AdminPage';
 
 
 const drawerWidth = 240;
@@ -109,6 +111,10 @@ const MainAppDrawer = ({selectedSection, drawerOpen, onNavSectionSelected, onDra
       content = "positions (stub)";
       title = "Positions";
       break;
+    case Constants.AppSection.ADMIN:
+      content = <AdminPage />
+      title = "Admin";
+      break;
     default:
       throw new Error("selectedSection must match one of AppSection values");
   }
@@ -123,6 +129,9 @@ const MainAppDrawer = ({selectedSection, drawerOpen, onNavSectionSelected, onDra
     { key: Constants.AppSection.POSITIONS,
       icon: <PositionsIcon />,
       label: "Positions" },
+    { key: Constants.AppSection.ADMIN,
+      icon: <AdminIcon />,
+      label: "Admin" },
   ];
 
   return (
