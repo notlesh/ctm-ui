@@ -22,33 +22,4 @@ describe("redux actions", () => {
     expect(Actions.navChangeDrawerState(false)).toEqual(expectedAction);
   });
 
-  it("should create users request action", () => {
-    const expectedAction = {
-      type: Constants.ActionTypes.DATA_USERS_REQUEST,
-      group: Constants.ActionGroups.DATA,
-    };
-
-    expect(Actions.dataUsersRequest()).toEqual(expectedAction);
-  });
-
-  it("should create users received action", () => {
-    const expectedAction = {
-      type: Constants.ActionTypes.DATA_USERS_RECEIVE,
-      group: Constants.ActionGroups.DATA,
-      users: "input",
-    };
-
-    expect(Actions.dataUsersReceive("input")).toEqual(expectedAction);
-  });
-
-  it("should create users fail action", () => {
-    const expectedAction = {
-      type: Constants.ActionTypes.DATA_USERS_FAIL,
-      group: Constants.ActionGroups.DATA,
-      reason: "oops",
-    };
-
-    expect(Actions.dataUsersFail("oops")).toEqual(expectedAction);
-  });
-
 });

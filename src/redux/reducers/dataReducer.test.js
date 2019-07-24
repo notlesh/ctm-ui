@@ -16,7 +16,11 @@ describe("reducers", () => {
     });
 
     it("should handle DATA_USERS_REQUEST", () => {
-      expect(dataReducer({}, Actions.dataUsersRequest())).toEqual(
+      // actions here are normally emitted by redux-api-middleware
+      const action = {
+        type: Constants.ActionTypes.DATA_USERS_REQUEST,
+      };
+      expect(dataReducer({}, action)).toEqual(
         {
           userRequestStatus: Constants.RequestStatus.IN_PROGRESS,
           userRequestMessage: "",
@@ -25,20 +29,30 @@ describe("reducers", () => {
     });
 
     it("should handle DATA_USERS_RECEIVE", () => {
-      expect(dataReducer({}, Actions.dataUsersReceive("users"))).toEqual(
+      // actions here are normally emitted by redux-api-middleware
+      const action = {
+        type: Constants.ActionTypes.DATA_USERS_RECEIVE,
+        payload: "users-payload",
+      };
+      expect(dataReducer({}, action)).toEqual(
         {
           userRequestStatus: Constants.RequestStatus.SUCCESSFUL,
           userRequestMessage: "",
-          users: "users",
+          users: "users-payload",
         }
       );
     });
 
     it("should handle DATA_USERS_FAIL", () => {
-      expect(dataReducer({}, Actions.dataUsersFail("oops"))).toEqual(
+      // actions here are normally emitted by redux-api-middleware
+      const action = {
+        type: Constants.ActionTypes.DATA_USERS_FAIL,
+        payload: { message: "500 - oops" },
+      };
+      expect(dataReducer({}, action)).toEqual(
         {
           userRequestStatus: Constants.RequestStatus.FAILED,
-          userRequestMessage: "oops",
+          userRequestMessage: "500 - oops",
         }
       );
     });

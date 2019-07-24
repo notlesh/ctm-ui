@@ -1,38 +1,31 @@
 import React, { useEffect } from 'react';
-import { connect, dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import * as Constants from '../constants';
-import * as Actions from '../redux/actions';
+import * as ApiActions from '../redux/api-actions';
 
 import UserList from '../components/UserList';
 
-const UserManagement = ({userList, usersRequested, usersReceived, usersFailed}) => {
+const UserManagement = ({ userList, requestUsers }) => {
 
   useEffect(() => {
-
-    // TODO: use middleware or at least organize better
-
-    fetch("http://192.168.2.147:5281/users/")
-      .then(response => response.json())
-      .then(data => {
-        console.log("Got response: ");
-        console.log(data);
-        usersReceived(data);
-      });
-      usersRequested();
-  });
+    requestUsers();
+  }, []);
 
   return (
-    <UserList users={userList} />
+    <div>
+    {userList.length == 0
+      ? <CircularProgress />
+      : <UserList users={userList} />
+    }
+    </div>
   );
 }
 
 UserManagement.propTypes = {
   userList: PropTypes.array,
-  usersRequested: PropTypes.func,
-  usersReceived: PropTypes.func,
-  usersFailed: PropTypes.func,
+  requestUsers: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -40,9 +33,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  usersRequested: Actions.dataUsersRequest,
-  usersReceived: Actions.dataUsersReceive,
-  usersFailed: Actions.dataUsersFail,
+  requestUsers: ApiActions.dataUsersRequest,
 }
 
 export default connect(

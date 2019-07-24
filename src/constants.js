@@ -1,3 +1,5 @@
+export const SERVER_HOST = "http://192.168.2.147:5281"
+
 /**
  * Enum for app sections
  */

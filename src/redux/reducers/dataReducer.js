@@ -13,13 +13,13 @@ function dataReducer(state = initialState.data, action) {
     return Object.assign({}, state,
       { userRequestStatus: Constants.RequestStatus.SUCCESSFUL,
         userRequestMessage: "",
-        users: action.users,
+        users: action.payload,
       });
 
   } else if (action.type === Constants.ActionTypes.DATA_USERS_FAIL) {
     return Object.assign({}, state,
       { userRequestStatus: Constants.RequestStatus.FAILED,
-        userRequestMessage: action.reason
+        userRequestMessage: action.payload.message,
       });
 
   } else {

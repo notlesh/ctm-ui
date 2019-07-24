@@ -38,7 +38,7 @@ const UserList = ({users}) => {
     <div className={classes.root}>
       <CssBaseline />
 
-      <List className={classes.root}>
+      <List>
         {users.map(user =>
           <ListItem>
             <ListItemText key={user._id} primary={user.username} />
