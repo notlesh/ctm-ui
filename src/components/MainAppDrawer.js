@@ -19,11 +19,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountIcon from '@material-ui/icons/AccountBalanceWallet';
 import PositionsIcon from '@material-ui/icons/TrendingUp';
-import AdminIcon from '@material-ui/icons/PermIdentity';
+import AdminUsersIcon from '@material-ui/icons/PermIdentity';
 
 import * as Constants from '../constants';
 import IntroductionPage from './IntroductionPage';
-import AdminPage from '../containers/AdminPage';
+import UserManagement from '../containers/UserManagement';
 
 
 const drawerWidth = 240;
@@ -111,9 +111,9 @@ const MainAppDrawer = ({selectedSection, drawerOpen, onNavSectionSelected, onDra
       content = "positions (stub)";
       title = "Positions";
       break;
-    case Constants.AppSection.ADMIN:
-      content = <AdminPage />
-      title = "Admin";
+    case Constants.AppSection.ADMIN_USERS:
+      content = <UserManagement />
+      title = "Manage Users";
       break;
     default:
       throw new Error("selectedSection must match one of AppSection values");
@@ -128,10 +128,13 @@ const MainAppDrawer = ({selectedSection, drawerOpen, onNavSectionSelected, onDra
       label: "Account" },
     { key: Constants.AppSection.POSITIONS,
       icon: <PositionsIcon />,
-      label: "Positions" },
-    { key: Constants.AppSection.ADMIN,
-      icon: <AdminIcon />,
-      label: "Admin" },
+      label: "Positions" }
+  ];
+
+  const adminSections = [
+    { key: Constants.AppSection.ADMIN_USERS,
+      icon: <AdminUsersIcon />,
+      label: "Manage Users" },
   ];
 
   return (
@@ -197,6 +200,23 @@ const MainAppDrawer = ({selectedSection, drawerOpen, onNavSectionSelected, onDra
             </ListItem>
           )}
         </List>
+
+        <Divider />
+
+        <List>
+          {adminSections.map(appSection =>
+            <ListItem
+              button
+              key={appSection.key}
+              selected={selectedSection === appSection.key}
+              onClick={() => onNavSectionSelected(appSection.key)}
+            >
+              <ListItemIcon>{appSection.icon}</ListItemIcon>
+              <ListItemText primary={appSection.label} />
+            </ListItem>
+          )}
+        </List>
+
       </Drawer>
 
       <main className={classes.content}>

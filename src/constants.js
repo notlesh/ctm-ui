@@ -7,7 +7,7 @@ export const AppSection = Object.freeze({
   DASHBOARD: "DASHBOARD",
   ACCOUNT: "ACCOUNT",
   POSITIONS: "POSITIONS",
-  ADMIN: "ADMIN",
+  ADMIN_USERS: "ADMIN_USERS",
 });
 
 /**
